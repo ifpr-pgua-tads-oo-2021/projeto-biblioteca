@@ -11,10 +11,13 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception{
         
+
         var scene = new Scene(new VBox(), 640, 480);
+
         stage.setScene(scene);
         stage.show();
     }
