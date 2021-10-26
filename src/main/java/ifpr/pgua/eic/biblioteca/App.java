@@ -2,6 +2,7 @@ package ifpr.pgua.eic.biblioteca;
 
 import ifpr.pgua.eic.biblioteca.repositorios.Biblioteca;
 import ifpr.pgua.eic.biblioteca.telas.CadastroAutor;
+import ifpr.pgua.eic.biblioteca.telas.CadastroRevista;
 import ifpr.pgua.eic.biblioteca.telas.Listas;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -18,44 +19,56 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private Biblioteca biblioteca;
-    private StackPane central;
-    private VBox botoes;
-    private BorderPane root;
+    private CadastroAutor cadastroAutor;
+    private CadastroRevista cadastroRevista;
+    private Listas listas;
+    private Biblioteca biblioteca = new Biblioteca();
+
+    private BorderPane painelPrincipal;
+    private StackPane regiaoCentral;
+    private VBox regiaoEsquerda;
 
     @Override
     public void start(Stage stage) {
         
-        biblioteca = new Biblioteca();
-        root = new BorderPane();
+        painelPrincipal = new BorderPane();
 
-        central = new StackPane();
-        botoes = new VBox();
-
-        botoes.setSpacing(5.0);
-        botoes.setPadding(new Insets(8.0));
+        regiaoCentral = new StackPane();
         
+        regiaoEsquerda = new VBox();
+        regiaoEsquerda.setSpacing(5.0);
+        regiaoEsquerda.setPadding(new Insets(10.0));
+
+        painelPrincipal.setLeft(regiaoEsquerda);
+        painelPrincipal.setCenter(regiaoCentral);
+
         Button btListas = new Button("Listas");
         btListas.setOnAction((evt)->{
-            central.getChildren().clear();
-            central.getChildren().add(new Listas(biblioteca).getRoot());
+            
+            listas = new Listas(biblioteca);
+            regiaoCentral.getChildren().clear();
+            regiaoCentral.getChildren().add(listas.getRoot());
         });
 
-        botoes.getChildren().add(btListas);
+        regiaoEsquerda.getChildren().add(btListas);
 
-        Button btCadastroAutor = new Button("Cadastro Autor");
-        btCadastroAutor.setOnAction((evt)->{
-            central.getChildren().clear();
-            CadastroAutor telaAutor = new CadastroAutor(biblioteca);
-            central.getChildren().add(telaAutor.getRoot());
+        Button btAutores = new Button("Cadastro Autor");
+        btAutores.setOnAction((evt)->{
+            cadastroAutor = new CadastroAutor(biblioteca);
+            regiaoCentral.getChildren().clear();
+            regiaoCentral.getChildren().add(cadastroAutor.getRoot());
         });
+        regiaoEsquerda.getChildren().add(btAutores);
 
-        botoes.getChildren().addAll(btCadastroAutor);
-        
-        root.setCenter(central);
-        root.setLeft(botoes);
+        Button btRevista = new Button("Cadastro de Revista");
+        btRevista.setOnAction((evt)->{
+            cadastroRevista = new CadastroRevista(biblioteca);
+            regiaoCentral.getChildren().clear();
+            regiaoCentral.getChildren().add(cadastroRevista.getRoot());
+        });
+        regiaoEsquerda.getChildren().add(btRevista);
 
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(painelPrincipal, 640, 480);
         
         stage.setScene(scene);
         stage.show();

@@ -4,49 +4,65 @@ import ifpr.pgua.eic.biblioteca.modelos.Autor;
 import ifpr.pgua.eic.biblioteca.modelos.ItemAcervo;
 import ifpr.pgua.eic.biblioteca.repositorios.Biblioteca;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
 public class Listas {
-    
+
     private FlowPane root;
 
-    private ListView<Autor> listaAutores;
-    private ListView<ItemAcervo> listaAcervo;
-    
+    private Label lbAutores;
+    private ListView<Autor> lstAutores;
+    private Label lbItems;
+    private ListView<ItemAcervo> lstItems;
+
     private Biblioteca biblioteca;
 
     public Listas(Biblioteca biblioteca){
         this.biblioteca = biblioteca;
-        inicializa();
+        inicializaComponentes();
     }
 
-    private void inicializa(){
-        
+    private void inicializaComponentes(){
         root = new FlowPane();
 
-        root.setVgap(5.0);
-        root.setHgap(5.0);
-        root.setPadding(new Insets(8.0));
+        root.setHgap(8.0);
+        root.setVgap(8.0);
+        root.setPadding(new Insets(10.0));
 
 
-        listaAutores = new ListView<>();
         
-        /*for(Autor a:biblioteca.getAutores()){
-            listaAutores.getItems().add(a);
-        }*/
+        lbAutores = new Label("Autores:");
+        lstAutores = new ListView<>();
+        lbAutores.setLabelFor(lstAutores);
 
-        listaAutores.getItems().addAll(biblioteca.getAutores());
-        root.getChildren().add(listaAutores);
+        lstAutores.getItems().addAll(biblioteca.getAutores());
+
+        VBox tmp = new VBox();
+        tmp.setSpacing(5.0);
+        tmp.getChildren().addAll(lbAutores,lstAutores);
+
+        root.getChildren().addAll(tmp);
+
+        lbItems = new Label("Items:");
+        lstItems = new ListView<>();
+
+        lstItems.getItems().addAll(biblioteca.getLivros());
+        lstItems.getItems().addAll(biblioteca.getRevistas());
         
-        listaAcervo = new ListView<>();
-        root.getChildren().add(listaAcervo);
 
+        tmp = new VBox();
+        tmp.setSpacing(5.0);
+        tmp.getChildren().addAll(lbItems,lstItems);
+
+        root.getChildren().addAll(tmp);
     }
 
-    public Parent getRoot(){
-        return this.root;
+    public FlowPane getRoot(){
+        return root;
     }
 
+    
 }
