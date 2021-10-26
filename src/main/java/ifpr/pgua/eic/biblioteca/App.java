@@ -5,13 +5,17 @@ import ifpr.pgua.eic.biblioteca.telas.CadastroAutor;
 import ifpr.pgua.eic.biblioteca.telas.CadastroRevista;
 import ifpr.pgua.eic.biblioteca.telas.Listas;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 /**
@@ -54,9 +58,9 @@ public class App extends Application {
 
         Button btAutores = new Button("Cadastro Autor");
         btAutores.setOnAction((evt)->{
-            cadastroAutor = new CadastroAutor(biblioteca);
+            //cadastroAutor = new CadastroAutor(biblioteca);
             regiaoCentral.getChildren().clear();
-            regiaoCentral.getChildren().add(cadastroAutor.getRoot());
+            regiaoCentral.getChildren().add(loadFXML("fxml/cadastro_autor.fxml", (o)->{return new CadastroAutor(biblioteca);}));
         });
         regiaoEsquerda.getChildren().add(btAutores);
 
@@ -72,6 +76,24 @@ public class App extends Application {
         
         stage.setScene(scene);
         stage.show();
+    }
+
+    private Parent loadFXML(String fxml, Callback controller){
+
+        Parent root = null;
+        
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(fxml));
+            loader.setControllerFactory(controller);
+
+            root = loader.load();
+
+        }catch(Exception e){
+            System.out.println("Deu erro no carregamento do FXML!! Está certo? "+fxml);
+        }
+
+        return root;
     }
 
     public static void main(String[] args) {

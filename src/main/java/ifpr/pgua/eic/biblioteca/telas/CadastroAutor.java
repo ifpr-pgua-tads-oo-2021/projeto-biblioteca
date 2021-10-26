@@ -1,6 +1,7 @@
 package ifpr.pgua.eic.biblioteca.telas;
 
 import ifpr.pgua.eic.biblioteca.repositorios.Biblioteca;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,56 +13,23 @@ import javafx.scene.layout.VBox;
 
 public class CadastroAutor {
 
-    private VBox root;
-    private Label lbNome;
+    @FXML
     private TextField tfNome;
-    private Label lbEmail;
+    
+    @FXML
     private TextField tfEmail;
-    private Label lbCpf;
+    
+    @FXML
     private TextField tfCpf;
-    private Button btAdicionar;
     
     private Biblioteca biblioteca;
 
     public CadastroAutor(Biblioteca biblioteca){
         this.biblioteca = biblioteca;
-        inicializaComponentes();
     }
 
-    private void inicializaComponentes(){
-        root = new VBox();
-
-        root.setSpacing(5.0);
-        root.setPadding(new Insets(10.0));
-        
-        lbNome = new Label("Nome:");
-        tfNome = new TextField();
-        lbNome.setLabelFor(tfNome);
-        
-        root.getChildren().addAll(lbNome,tfNome);
-
-
-        lbEmail = new Label("Email:");
-        tfEmail = new TextField();
-        lbEmail.setLabelFor(tfEmail);
-        
-        root.getChildren().addAll(lbEmail,tfEmail);
-
-        lbCpf = new Label("Cpf:");
-        tfCpf = new TextField();
-        lbCpf.setLabelFor(tfCpf);
-        
-        root.getChildren().addAll(lbCpf,tfCpf);
-
-        btAdicionar = new Button("Adicionar");
-        btAdicionar.setOnAction((evt)->{
-            cadastra();
-        });
-
-        root.getChildren().add(btAdicionar);
-    }
-
-    private void cadastra(){
+    @FXML
+    private void cadastrar(){
         String nome = tfNome.getText();
         String email = tfEmail.getText();
         String cpf = tfCpf.getText();
@@ -100,8 +68,11 @@ public class CadastroAutor {
         popup.showAndWait();
     }
 
-    public VBox getRoot(){
-        return root;
+    @FXML
+    private void limpar(){
+        tfNome.clear();
+        tfCpf.clear();
+        tfEmail.clear();
     }
-    
+
 }
