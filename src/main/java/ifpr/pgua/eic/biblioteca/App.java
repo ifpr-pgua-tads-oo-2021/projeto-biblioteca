@@ -1,5 +1,7 @@
 package ifpr.pgua.eic.biblioteca;
 
+import java.io.IOException;
+
 import ifpr.pgua.eic.biblioteca.repositorios.Biblioteca;
 import ifpr.pgua.eic.biblioteca.telas.CadastroAutor;
 import ifpr.pgua.eic.biblioteca.telas.CadastroLivro;
@@ -53,7 +55,7 @@ public class App extends Application {
 
             root = loader.load();
             
-        }catch (Exception e){
+        }catch (IOException e){
             System.out.println("Problema no arquivo fxml. Está correto?? "+fxml);
         }
         return root;   

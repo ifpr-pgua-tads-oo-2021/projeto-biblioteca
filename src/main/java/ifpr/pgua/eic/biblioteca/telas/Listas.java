@@ -12,8 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.util.Callback;
 
@@ -35,6 +37,9 @@ public class Listas {
 
     @FXML
     private TextField tfNomeAutor;
+
+    @FXML
+    private TextArea taStatus;
 
     private Biblioteca biblioteca;
 
@@ -65,6 +70,7 @@ public class Listas {
             listaAcervo.getItems().clear();
             listaAcervo.getItems().addAll(biblioteca.getRevistas());
         }
+        
     }
 
     @FXML
@@ -80,6 +86,26 @@ public class Listas {
             listaAutores.getItems().clear();
             listaAutores.getItems().addAll(biblioteca.getAutores());
         }
+
+    }
+
+    @FXML
+    private void atualizaStatus(MouseEvent evt){
+        String msg="";
+        
+        if(evt.getSource() == listaAutores){
+            Autor a = listaAutores.getSelectionModel().getSelectedItem();
+            if(a != null){
+                msg = a.getNome()+"("+a.getCpf()+") - "+a.getEmail();
+            }
+        }else if(evt.getSource() == listaAcervo){
+            ItemAcervo item = listaAcervo.getSelectionModel().getSelectedItem();
+            if(item != null){
+                msg = item.toString();
+            }
+        }
+
+        taStatus.setText(msg);
 
     }
 

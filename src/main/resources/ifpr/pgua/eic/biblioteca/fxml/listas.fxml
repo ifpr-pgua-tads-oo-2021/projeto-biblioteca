@@ -1,45 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
+<BorderPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifpr.pgua.eic.biblioteca.telas.Listas">
+    <center>
+        <FlowPane hgap="5.0" prefHeight="447.0" prefWidth="525.0" vgap="5.0">
+            <padding>
+                <Insets topRightBottomLeft="8.0" />
+            </padding>
 
-<FlowPane xmlns="http://javafx.com/javafx" 
-      xmlns:fx="http://javafx.com/fxml" 
-      prefHeight="400" prefWidth="600"
-      fx:controller="ifpr.pgua.eic.biblioteca.telas.Listas"
-      vgap="5.0"
-      hgap="5.0"
-      >
+            <VBox prefHeight="431.0" prefWidth="284.0" spacing="5.0">
+                <TextField fx:id="tfNomeAutor" onKeyTyped="#filtraAutores" promptText="Digite para pesquisar" />
+                <ListView fx:id="listaAutores" onMouseClicked="#atualizaStatus" prefHeight="400.0" prefWidth="312.0" />
+            </VBox>
 
-    <padding>
-        <Insets topRightBottomLeft="8.0"/>
-    </padding>
+            <VBox prefHeight="431.0" prefWidth="291.0" spacing="9.0">
+                <HBox spacing="5.0">
+                    <fx:define>
+                        <ToggleGroup fx:id="grupo1" />
+                    </fx:define>
+                    <RadioButton fx:id="rbTodos" onAction="#mostraAcervo" text="Todos">
+                  <toggleGroup>
+                     <ToggleGroup fx:id="grupo1" />
+                  </toggleGroup></RadioButton>
+                    <RadioButton fx:id="rbLivros" onAction="#mostraAcervo" text="Livros" toggleGroup="$grupo1" />
+                    <RadioButton fx:id="rbRevistas" onAction="#mostraAcervo" text="Revistas" toggleGroup="$grupo1" />
+                </HBox>
 
-    <VBox spacing="5.0">
-        <TextField fx:id="tfNomeAutor" 
-                   promptText="Digite para pesquisar" 
-                   onKeyTyped="#filtraAutores"/>
-        <ListView fx:id="listaAutores"/>
-    </VBox>
+                <ListView fx:id="listaAcervo" onMouseClicked="#atualizaStatus" prefHeight="404.0" prefWidth="292.0" />
+            </VBox>
+        </FlowPane>
+    </center>
+    <bottom>
+        <VBox prefHeight="50.0" prefWidth="600.0">
+         <children>
+            <TextArea fx:id="taStatus" editable="false" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+        </VBox>
+    </bottom>
 
-    <VBox spacing="9.0">
-        <HBox spacing="5.0">
-            <fx:define>
-                <ToggleGroup fx:id="grupo1"/>
-            </fx:define>
-            <RadioButton fx:id="rbTodos" text="Todos" toggleGroup="$grupo1" onAction="#mostraAcervo"/>
-            <RadioButton fx:id="rbLivros" text="Livros" toggleGroup="$grupo1" onAction="#mostraAcervo"/>
-            <RadioButton fx:id="rbRevistas" text="Revistas" toggleGroup="$grupo1" onAction="#mostraAcervo"/> 
-        </HBox>
-
-        <ListView fx:id="listaAcervo"/>
-    </VBox>
-
-
-</FlowPane>
+</BorderPane>

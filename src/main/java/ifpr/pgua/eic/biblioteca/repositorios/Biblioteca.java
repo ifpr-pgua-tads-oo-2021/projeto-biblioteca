@@ -20,8 +20,8 @@ public class Biblioteca {
     }
 
     public void povoa(){
-        autores.clear();
 
+        autores.clear();
         autores.add(new Autor("Ze Autor","ze@teste.com","001"));
         autores.add(new Autor("Blah Autor","blah@teste.com","002"));
         autores.add(new Autor("Bleh Autor","bleh@teste.com","003"));
@@ -38,7 +38,6 @@ public class Biblioteca {
         acervo.add(new Revista("Revista 2",2,2,2,"Editora 2"));
         acervo.add(new Revista("Revista 3",3,3,3,"Editora 3"));
         acervo.add(new Revista("Revista 4",4,4,4,"Editora 4"));
-
 
     }
 
