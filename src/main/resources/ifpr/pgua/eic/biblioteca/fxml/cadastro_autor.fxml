@@ -11,13 +11,15 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       prefHeight="400.0" prefWidth="600.0" 
-      spacing="5.0" fx:controller="ifpr.pgua.eic.biblioteca.telas.CadastroAutor">
+      spacing="5.0" fx:controller="ifpr.pgua.eic.biblioteca.telas.CadastroAutor"
+      stylesheets="@../css/estilo_cadastro_autor.css"
+      >
 
     <padding>
         <Insets top="10.0" bottom="10.0" left="10.0" right="10.0"/>
     </padding>
 
-    <Label text="Nome:" labelFor="$tfNome" />
+    <Label fx:id="lbNome" text="Nome:" labelFor="$tfNome" />
     <TextField fx:id="tfNome"/>
 
     <Label text="Email:" labelFor="$tfEmail"/>
@@ -28,7 +30,7 @@
     
     <HBox spacing="5.0">
         <Button text="Adicionar" onAction="#cadastrar"/>
-        <Button text="Limpar" onAction="#limpar"/>
+        <Button text="Limpar" onAction="#limpar" styleClass="botao-limpar"/>
     </HBox>
         
 </VBox>
