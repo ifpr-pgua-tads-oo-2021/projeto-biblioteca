@@ -38,6 +38,9 @@ public class Autor {
     public String toString(){
         return nome;
     }
-   
 
+    public String paraTexto(){
+        return "nome:"+nome+";email:"+email+";cpf:"+cpf;
+    }
+   
 }

@@ -49,4 +49,8 @@ public abstract class ItemAcervo {
         return titulo;
     }
 
+    public String paraTexto(){
+        return "titulo:"+titulo+";anoPublicacao:"+anoPublicacao+";editora:"+editora+";numeroPaginas:"+numeroPaginas;
+    }
+
 }

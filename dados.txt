@@ -1,0 +1,16 @@
+[AUTORES]
+	nome:Ze Autor;email:ze@teste.com;cpf:001
+	nome:Blah Autor;email:blah@teste.com;cpf:002
+	nome:Bleh Autor;email:bleh@teste.com;cpf:003
+	nome:Blih Autor;email:blih@teste.com;cpf:004
+	nome:Xico Autor;email:xico@teste.com;cpf:005
+[REVISTAS]
+	titulo:Revista 1;anoPublicacao:1;editora:Editora 1;numeroPaginas:1;numero:1
+	titulo:Revista 2;anoPublicacao:2;editora:Editora 2;numeroPaginas:2;numero:2
+	titulo:Revista 3;anoPublicacao:3;editora:Editora 3;numeroPaginas:3;numero:3
+	titulo:Revista 4;anoPublicacao:4;editora:Editora 4;numeroPaginas:4;numero:4
+[LIVROS]
+	titulo:Livro 1;anoPublicacao:1;editora:Editora 1;numeroPaginas:1;numeroCapitulos:1;autor:001
+	titulo:Livro 2;anoPublicacao:2;editora:Editora 2;numeroPaginas:2;numeroCapitulos:2;autor:002
+	titulo:Livro 3;anoPublicacao:3;editora:Editora 3;numeroPaginas:3;numeroCapitulos:3;autor:003
+	titulo:Livro 4;anoPublicacao:4;editora:Editora 4;numeroPaginas:4;numeroCapitulos:4;autor:004

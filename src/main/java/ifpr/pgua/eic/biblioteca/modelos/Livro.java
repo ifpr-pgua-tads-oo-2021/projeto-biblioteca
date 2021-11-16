@@ -28,4 +28,8 @@ public class Livro extends ItemAcervo{
     public void setNumeroCapitulos(int numeroCapitulos) {
         this.numeroCapitulos = numeroCapitulos;
     } 
+
+    public String paraTexto(){
+        return super.paraTexto()+";numeroCapitulos:"+numeroCapitulos+";autor:"+autor.getCpf();
+    }
 }

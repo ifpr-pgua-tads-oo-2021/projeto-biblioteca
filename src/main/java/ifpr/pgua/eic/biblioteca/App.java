@@ -35,7 +35,9 @@ public class App extends Application {
         
         /*SOMENTE EM TEMPO DE DESENVOLVIMENTO*/
         /*DESABILITAR EM PRODUCAO*/
-        biblioteca.povoa();
+        //biblioteca.povoa();
+
+        biblioteca.leDados();
 
         Parent root = loadTela("fxml/home.fxml", (o)->new Home(biblioteca));
 
@@ -45,6 +47,13 @@ public class App extends Application {
         stage.show();
     }
 
+    @Override
+    public void stop() throws Exception {
+        // TODO Auto-generated method stub
+        super.stop();
+
+        biblioteca.salvaDados();
+    }
     
     public static Parent loadTela(String fxml, Callback controller){
         Parent root = null;

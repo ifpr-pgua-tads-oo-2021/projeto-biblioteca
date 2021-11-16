@@ -1,5 +1,11 @@
 package ifpr.pgua.eic.biblioteca.repositorios;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ifpr.pgua.eic.biblioteca.modelos.Autor;
@@ -12,7 +18,7 @@ public class Biblioteca {
     private ArrayList<Autor> autores;
     private ArrayList<ItemAcervo> acervo;
 
-
+    private static final String NOME_ARQUIVO = "dados.txt";
 
     public Biblioteca(){
         autores = new ArrayList<>();
@@ -136,9 +142,92 @@ public class Biblioteca {
         return revistas;
     }
 
+    public void salvaDados() throws IOException{
 
+        File arq = new File(NOME_ARQUIVO);
+        FileWriter fw = new FileWriter(arq);
+        BufferedWriter bw = new BufferedWriter(fw);
 
+        //autores
+        bw.write("[AUTORES]\n");
+        for(Autor a:autores){
+            bw.write("\t"+a.paraTexto());
+            bw.newLine();
+        }
+        //revistas
+        bw.write("[REVISTAS]\n");
+        for(ItemAcervo item:acervo){
+            if(item instanceof Revista){
+                bw.write("\t"+item.paraTexto());
+                bw.newLine();
+            }
+        }
+        //livros
+        bw.write("[LIVROS]\n");
+        for(ItemAcervo item:acervo){
+            if(item instanceof Livro){
+                bw.write("\t"+item.paraTexto());
+                bw.newLine();
+            }
+        }
+        bw.close();
+        fw.close();
+    }
 
+    public void leDados() throws IOException{
+        File arq = new File(NOME_ARQUIVO);
+        FileReader fr = new FileReader(arq);
+        BufferedReader br = new BufferedReader(fr);
+        int tipo=0; //0 autores; 1 revistas; 2 livros
+        
+        String linha;
 
+        while((linha=br.readLine())!=null){
+            System.out.println(linha);
+            if(linha.contains("[AUTORES]")){
+                tipo = 0;
+            }else if(linha.contains("[REVISTAS]")){
+                tipo = 1;
+            }else if(linha.contains("[LIVROS]")){
+                tipo = 2;
+            }
+            
+            System.out.println(tipo);
+            if(!linha.contains("[")){
+                linha = linha.replace("\t","");
+                String[] pedacos = linha.split(";");
 
+                //manipulando autor
+                if(tipo == 0){
+                    String nome = pedacos[0].split(":")[1];
+                    String email = pedacos[1].split(":")[1];
+                    String cpf = pedacos[2].split(":")[1];
+
+                    Autor a = new Autor(nome, email, cpf);
+                    this.autores.add(a);
+                }else if(tipo == 1){
+                    String titulo = pedacos[0].split(":")[1];
+                    int anoPublicacao = Integer.valueOf(pedacos[1].split(":")[1]);
+                    String editora = pedacos[2].split(":")[1];
+                    int numeroPaginas = Integer.valueOf(pedacos[3].split(":")[1]);
+                    int numero = Integer.valueOf(pedacos[4].split(":")[1]);
+    
+                    Revista r = new Revista(titulo, numero, anoPublicacao, numeroPaginas, editora);
+                    this.acervo.add(r);
+                }else if(tipo == 2){
+                    String titulo = pedacos[0].split(":")[1];
+                    int anoPublicacao = Integer.valueOf(pedacos[1].split(":")[1]);
+                    String editora = pedacos[2].split(":")[1];
+                    int numeroPaginas = Integer.valueOf(pedacos[3].split(":")[1]);
+                    int numeroCapitulos = Integer.valueOf(pedacos[4].split(":")[1]);
+                    String cpfAutor = pedacos[5].split(":")[1];
+
+                    Autor a = buscaAutorCpf(cpfAutor);
+
+                    Livro l = new Livro(titulo, a, anoPublicacao, numeroPaginas, editora, numeroCapitulos);
+                    this.acervo.add(l);
+                }
+            }
+        }
+    }
 }

@@ -1,0 +1,4 @@
+Testando a escrita em arquivos...1
+Outra linha no arquivo...10
+Outras linhas no arquivo
+QUe não foram escritas anteriormente.

@@ -16,5 +16,8 @@ public class Revista extends ItemAcervo{
         this.numero = numero;
     }
 
+    public String paraTexto(){
+        return super.paraTexto()+";numero:"+numero;
+    }
 
 }
