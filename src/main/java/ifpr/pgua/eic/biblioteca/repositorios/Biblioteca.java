@@ -3,9 +3,13 @@ package ifpr.pgua.eic.biblioteca.repositorios;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import ifpr.pgua.eic.biblioteca.modelos.Autor;
@@ -18,8 +22,9 @@ public class Biblioteca {
     private ArrayList<Autor> autores;
     private ArrayList<ItemAcervo> acervo;
 
-    private static final String NOME_ARQUIVO = "dados.txt";
-
+    private static final String NOME_ARQUIVO_TXT = "dados.txt";
+    private static final String NOME_ARQUIVO_BIN = "dados.bin";
+    
     public Biblioteca(){
         autores = new ArrayList<>();
         acervo = new ArrayList<>();
@@ -142,9 +147,9 @@ public class Biblioteca {
         return revistas;
     }
 
-    public void salvaDados() throws IOException{
+    public void salvaDadosTXT() throws IOException{
 
-        File arq = new File(NOME_ARQUIVO);
+        File arq = new File(NOME_ARQUIVO_TXT);
         FileWriter fw = new FileWriter(arq);
         BufferedWriter bw = new BufferedWriter(fw);
 
@@ -174,15 +179,20 @@ public class Biblioteca {
         fw.close();
     }
 
-    public void leDados() throws IOException{
-        File arq = new File(NOME_ARQUIVO);
+    public void leDadosTXT() throws IOException{
+        File arq = new File(NOME_ARQUIVO_TXT);
         FileReader fr = new FileReader(arq);
         BufferedReader br = new BufferedReader(fr);
         int tipo=0; //0 autores; 1 revistas; 2 livros
         
         String linha;
 
-        while((linha=br.readLine())!=null){
+        linha=br.readLine();
+
+        autores.clear();
+        acervo.clear();
+
+        while(linha!=null){
             System.out.println(linha);
             if(linha.contains("[AUTORES]")){
                 tipo = 0;
@@ -228,6 +238,34 @@ public class Biblioteca {
                     this.acervo.add(l);
                 }
             }
+            linha = br.readLine();
         }
     }
+
+    public void salvaDadosBIN() throws IOException{
+        File arq = new File(NOME_ARQUIVO_BIN);
+        FileOutputStream fos = new FileOutputStream(arq);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(autores);
+        oos.writeObject(acervo);
+
+        oos.close();
+        fos.close();
+    }
+
+    public void leDadosBIN() throws IOException, ClassNotFoundException{
+
+        File arq = new File(NOME_ARQUIVO_BIN);
+        FileInputStream fis = new FileInputStream(arq);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        autores = (ArrayList)ois.readObject();
+        acervo = (ArrayList)ois.readObject();
+
+        ois.close();
+        fis.close();
+
+    }
+
 }

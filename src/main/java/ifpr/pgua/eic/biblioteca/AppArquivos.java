@@ -1,8 +1,12 @@
 package ifpr.pgua.eic.biblioteca;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,13 +15,49 @@ public class AppArquivos {
     
     public static void main(String[] args){
         
-        //escreveArquivo();
-        leArquivo();
-        
+        //escreveArquivoTexto();
+        //leArquivoTexto();
+        //escreveArquivoBinario();
+        leArquivoBinario();
+
+
 
     }
 
-    private static void leArquivo(){
+    private static void escreveArquivoBinario(){
+        try{
+            File arq = new File("arquivo.bin");
+            FileOutputStream fos = new FileOutputStream(arq);
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+            bos.write(new Double(26.0).byteValue());
+
+            bos.close();
+            fos.close();
+
+
+        }catch(IOException e){
+            System.out.println("Erro na leitura do arquivo binário!"+e.getMessage());
+        }
+    }
+
+    private static void leArquivoBinario(){
+        try{
+            File arq = new File("arquivo.bin");
+            FileInputStream fis = new FileInputStream(arq);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+
+            
+            
+
+
+        }catch(IOException e){
+            System.out.println("Erro na escrita do arquivo binário!"+e.getMessage());    
+        }
+    }
+
+
+    private static void leArquivoTexto(){
         try{
             File arq = new File("arquivo.txt");
             FileReader fr = new FileReader(arq);
@@ -37,7 +77,7 @@ public class AppArquivos {
         }
     }
 
-    private static void escreveArquivo(){
+    private static void escreveArquivoTexto(){
         try{
             File arq = new File("arquivo.txt");
             FileWriter fw = new FileWriter(arq);
@@ -50,9 +90,10 @@ public class AppArquivos {
 
             bw.close();
             fw.close();
-            
+
         }catch(IOException e){
             System.out.println("Erro com o arquivo!!! "+e.getMessage());
         }
     }
 }
+
